@@ -1,6 +1,8 @@
 package com.company.heap;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Scanner;
 
 public class RestaurantRating {
     public static void main(String[] args) {
@@ -19,23 +21,20 @@ public class RestaurantRating {
                 if (oneThird == 0) {
                     System.out.println("No reviews yet");
                 } else {
-                    if (minHeap.size() < oneThird) {
-                        while(minHeap.size() < oneThird) {
-                            int r = maxHeap.remove();
-                            minHeap.add(r);
-                        }
-                    } else if (minHeap.size() == oneThird) {
-                        if (maxHeap.peek() > minHeap.peek()) {
-                            int max = maxHeap.remove();
-                            int min = minHeap.remove();
-                            maxHeap.add(min);
-                            minHeap.add(max);
-                        }
-                    } else {
-                        while(minHeap.size() > oneThird) {
-                            maxHeap.add(minHeap.remove());
-                        }
+                    while (minHeap.size() < oneThird) {
+                        int r = maxHeap.remove();
+                        minHeap.add(r);
                     }
+                    while (minHeap.size() > oneThird) {
+                        maxHeap.add(minHeap.remove());
+                    }
+                    if (maxHeap.peek() > minHeap.peek()) {
+                        int max = maxHeap.remove();
+                        int min = minHeap.remove();
+                        maxHeap.add(min);
+                        minHeap.add(max);
+                    }
+
                     System.out.println(minHeap.peek());
 
 
