@@ -29,33 +29,53 @@ public class DuDuServiceMaker {
     }
 
     private static void handleGraph(List<List<Integer>> graph, int vertices) {
-        boolean visited [] = new boolean[vertices + 1];
-        int path [] = new int[vertices + 1];
-        for (int j = 0; j < vertices + 1; j++) {
-            path[j] = -1;
-        }
+        int visited [] = new int[vertices + 1];
+
         for (int i = 1; i < vertices + 1; i++) {
-            if (!visited[i]) {
-                Stack<Integer> stack = new Stack<>();
-                stack.push(i);
-                visited[i] = true;
-                while (!stack.isEmpty()) {
-                    int vertex = stack.pop();
-                    for (int depend : graph.get(vertex)) {
-                        if (visited[depend] ) {
-                            System.out.println("YES");
-                            return;
-                        }
-                        stack.push(depend);
-                        visited[depend] = true;
-                    }
-                }
+            if (dfs(graph, i, visited)) {
+                System.out.println("YES");
+                return;
             }
         }
         System.out.println("NO");
     }
 
-//    private boolean checkPath(int start, int end, int[]path) {
-//
-//    }
+    private static boolean dfs(List<List<Integer>> graph, int start, int [] visited) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(start);
+        visited[start] = 1;
+        while (!stack.isEmpty()) {
+            int vertex = stack.pop();
+            visited[vertex] = 1;
+            if (graph.get(vertex).isEmpty()) {
+                visited[vertex] = 2;
+            }
+            for (int depend : graph.get(vertex)) {
+                if (visited[depend] == 1) {
+                    return true;
+                } else if (visited[depend] == 0) {
+                    stack.push(depend);
+                }
+            }
+        }
+
+        visited[start] = 2;
+        return false;
+    }
+
+    private static boolean dfsRecursive(List<List<Integer>> graph, int start, int [] visited) {
+        visited[start] = 1;
+
+        for (int neighbor : graph.get(start)) {
+            if (visited[neighbor] == 1) {
+                return true;
+            } else if (visited[neighbor] == 0) {
+                if (dfsRecursive(graph, neighbor, visited)) {
+                    return true;
+                }
+            }
+        }
+        visited[start] = 2;
+        return false;
+    }
 }

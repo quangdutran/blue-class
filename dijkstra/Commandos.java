@@ -6,7 +6,8 @@ import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class Commandos {
-    private static int [] distance;
+    private static int [] distanceStart;
+    private static int [] distanceEnd;
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -26,34 +27,43 @@ public class Commandos {
             }
             int start = input.nextInt();
             int end = input.nextInt();
-            distance = new int [graph.length];
+            distanceStart = new int [graph.length];
+            distanceEnd = new int [graph.length];
 
-            processGraph(graph, start);
+            processGraphStart(graph, start);
+            processGraphEnd(graph, end);
 
-            int max = distance[0];
+            int max = distanceStart[0] + distanceEnd[0];
             int indexMax = 0;
+
+
             for (int j = 1; j < graph.length; j++) {
-                if (distance[j] > max) {
-                    max = distance[j];
+                if (distanceStart[j] + distanceEnd[j] > max) {
+                    max = distanceStart[j] + distanceEnd[j];
                     indexMax = j;
                 }
             }
 
-            if (end != indexMax) {
-                processGraph(graph, indexMax);
-                max += distance[end];
-            }
+
             System.out.println("Case " + (i+1) + ": " + max);
         }
         input.close();
     }
 
-    private static void processGraph(List<Node>[] graph, int start) {
+    private static void processGraphStart(List<Node>[] graph, int start) {
         PriorityQueue<Node> heap = new PriorityQueue<>();
         for (int i = 0; i < graph.length; i++) {
-            distance[i] = Integer.MAX_VALUE;
+            distanceStart[i] = Integer.MAX_VALUE;
         }
-        dijkstra(graph, heap, distance, start);
+        dijkstra(graph, heap, distanceStart, start);
+    }
+
+    private static void processGraphEnd(List<Node>[] graph, int start) {
+        PriorityQueue<Node> heap = new PriorityQueue<>();
+        for (int i = 0; i < graph.length; i++) {
+            distanceEnd[i] = Integer.MAX_VALUE;
+        }
+        dijkstra(graph, heap, distanceEnd, start);
     }
 
     private static void dijkstra(List<Node>[] graph, PriorityQueue<Node> heap, int [] distance, int start) {
