@@ -1,13 +1,17 @@
 package com.company.binarysearch;
 
+import java.util.Arrays;
+
 public class BinarySearch {
     public static void main(String[] args) {
         int [] array = new int[]{6,13,33,33,33,33,33,51,53,64,72,84};
         System.out.println(binarySearchFirstPosition(array, 0, array.length - 1, 25));
         System.out.println(binarySearchLastPosition(array, 0, array.length - 1, 25));
-        System.out.println(lowerBound(array, array.length - 1, 0, 12));
+        System.out.println(lowerBound(array, array.length - 1, 0, 53));
+        System.out.println(upperBound(array, array.length - 1, 0, 53));
+        System.out.println(Arrays.binarySearch(array, 85));
+
         //System.out.println(lowerBoundRecursive(array, array.length - 1, 0, 12));
-        System.out.println(upperBound(array, array.length - 1, 0, 33));
         //System.out.println(upperBoundRecursive(array, array.length - 1, 0, 13));
     }
 
