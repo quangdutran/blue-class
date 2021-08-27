@@ -54,10 +54,34 @@ public class AnswerTheBoss {
                 }
             }
 
+            List<Employee> employeeList = new ArrayList<>();
+            map.forEach((key, value) -> {
+                employeeList.add(new Employee(key, value));
+            });
+
+            Collections.sort(employeeList, new Comparator<Employee>() {
+                public int compare(Employee e1, Employee e2) {
+                    if (e1.rank == e2.rank) {
+                        return Integer.compare(e1.index, e2.index);
+                    }
+                    return Integer.compare(e1.rank, e2.rank);
+                }
+            });
+
             System.out.println("Scenario #" +  ++count + ":");
             for (int i = 0; i < employees; i++) {
-                System.out.println(map.get(order.get(i)) + " " + order.get(i));
+                System.out.println(employeeList.get(i).rank + " " + employeeList.get(i).index);
             }
+        }
+    }
+
+    static class Employee {
+        int index;
+        int rank;
+
+        Employee(int index, int rank) {
+            this.index = index;
+            this.rank = rank;
         }
     }
 }
