@@ -21,8 +21,8 @@ public class ExaminationPapers {
      * @param m
      * @return
      */
-   private static int modularExponentiation(int a, int b, int m) {
-       int result = 1;
+   private static long modularExponentiation(long a, long b, int m) {
+       long result = 1;
        a %= m;
        while (b>0) {
            if (b % 2 == 1) {
