@@ -2,6 +2,7 @@ package com.company.alg.orange.dynamicprogramming3;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class LongestIncreasingSubsequence {
     private static ArrayList<Integer> dp;
@@ -48,14 +49,18 @@ public class LongestIncreasingSubsequence {
     }
 
     public static void main(String[] args) {
-//        int [] a = new int[] {5,12,3,10,6,8,14,4,11,7,15};
-//        int length = LIS(a);
-//        System.out.println("Length of Longest Increasing Subsequence is: " + length);
-//        printLIS(a);
-        int [] a = new int[] {5,5,2, 2,12,3,10,6,8,14,4,11,7,15};
-        int length = lisOptimized(a);
+        int [] a = new int[] {5,12,3,10,6,8,14,4,11,7,15,3};
+        int length = LIS(a);
         System.out.println("Length of Longest Increasing Subsequence is: " + length);
-        printLisOptimized(a, length);
+        printLIS(a);
+        int [] aprime = new int [] {3,15,7,11,4,14,8,6,10,3,12,5};
+        length = LIS(aprime);
+        System.out.println("reverse:" + length);
+        printLIS(a);
+//        int [] a = new int[] {5,5,2, 2,12,3,10,6,8,14,4,11,7,15};
+//        int length = lisOptimized(a);
+//        System.out.println("Length of Longest Increasing Subsequence is: " + length);
+//        printLisOptimized(a, length);
     }
 
     private static int lowerBound(int [] a, ArrayList<Integer> sub, int n, int x) {
@@ -106,5 +111,33 @@ public class LongestIncreasingSubsequence {
         for (i = result.size() - 1; i >= 0; i--) {
             System.out.printf("%d ", result.get(i));
         }
+    }
+
+
+
+    private static int LIS_Reverse(int [] a) {
+        int length = 0;
+        dp = new ArrayList<>();
+        for (int i = 0; i < a.length; i++) {
+            dp.add(1);
+        }
+        path = new int[a.length];
+        Arrays.fill(path, -1);
+        for (int i = 1; i < a.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (a[i] < a[j] && dp.get(i) < dp.get(j) + 1) {
+                    dp.set(i, dp.get(j) + 1);
+                    path[i] = j;
+                }
+            }
+        }
+
+        for (int i = 0; i < a.length; i++) {
+            if (length < dp.get(i)) {
+                length = dp.get(i);
+                last = i;
+            }
+        }
+        return length;
     }
 }
