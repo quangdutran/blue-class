@@ -10,13 +10,10 @@ jobs:
       - name: Checkout repo (optional but avoids errors)
         uses: actions/checkout@v4
 
-      - name: Setup GitHub CLI
-        uses: cli/gh-action@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Comment on the new issue
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
           gh issue comment "$ISSUE_NUMBER" --body "👋 Hi! Thanks for creating an issue. Please make sure to check out the contribution guide!"
