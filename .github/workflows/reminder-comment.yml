@@ -15,11 +15,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_URL: ${{ github.event.issue.html_url }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
-        script: |
-          const message = `**Hi** 👋
-
-          Thanks for opening this issue.
-
-          Before we proceed, please make sure to read our [Contribution Guide](https://github.com/quangdutran/blue-class/blob/main/alg/orange/backtracking/DiggerOctaves.java). 🙏`;
         run: |
-          gh issue comment "$ISSUE_NUMBER" --body "👋 Hi! Thanks for creating an issue. Please make sure to check out the contribution guide!"
+          gh issue comment "$ISSUE_NUMBER" --body $'**Hi there! 👋**\n\nThanks for opening this issue.\n\nPlease take a moment to review our [Contribution Guide](https://github.com/quangdutran/blue-class/blob/main/alg/orange/bitmanipulation/AishAndXor.java). 🙏'
