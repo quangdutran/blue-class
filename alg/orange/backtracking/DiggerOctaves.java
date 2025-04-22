@@ -22,7 +22,7 @@ public class DiggerOctaves {
             for (int i = 0; i < size; i++) {
                 String line = input.nextLine();
                 for (int j = 0; j < size; j++) {
-                    maze[i][j] = line.charAt(j);
+                     maze[i][j] = line.charAt(j);
                 }
             }
             System.out.println(count(maze));
